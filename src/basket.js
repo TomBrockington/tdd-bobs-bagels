@@ -1,19 +1,22 @@
 class Checkout {
   constructor() {
     this.basket = []
+    this.max = 5
   }
 
-  // addToBasket(item) {
-  //   if (!item) {
-  //     return null
-  //   }
-  //   this.basket.push(item)
-  //   return item
-  // }
+  isMax() {
+    if (this.basket.length >= this.max) {
+      return true
+    }
+    return false
+  }
 
   addToBasket(item) {
-    if (item) {
-      this.basket.push(item)
+    if (!this.isMax()) {
+      if (item) {
+        console.log('Added Item ', item, this.basket.length)
+        this.basket.push(item)
+      }
     }
     return this.basket
   }
@@ -24,17 +27,6 @@ class Checkout {
     }
     return this.basket
   }
-
-  // removeItems(item) {
-  //   console.log('contetns before ', this.basket)
-  //   for (let i = 0; i < this.basket.length; i++) {
-  //     if (item.sku === this.basket[i].sku) {
-  //       delete this.basket[i]
-  //     }
-  //   }
-  //   console.log('contents after ', this.basket)
-  //   return this.basket
-  // }
 
   removeFromBasket(item) {
     // check if there any items basket, then remove the last one from the array
@@ -50,5 +42,7 @@ class Checkout {
     return this.basket
   }
 }
+
+console.log('is max q', this.quantity)
 
 module.exports = Checkout

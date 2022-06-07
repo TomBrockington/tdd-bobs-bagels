@@ -21,3 +21,12 @@ I'd like to remove an item from my basket
 method                  || inputs           || scenario         || outputs
 removeFromBasket(item)     item@object          pull item           basket - item
 checkItemToRemove           ID@number           check ID            item ID = 
+
+## 2.1 
+As a member of the public,
+So that I can not overfill my small bagel basket
+I'd like to know when my basket is full when I try adding an item beyond my basket capacity.
+
+method                  || inputs           || scenario         || outputs
+checkQuantity               basket array        if over 10          add item    
+                                                dont add            dont add item

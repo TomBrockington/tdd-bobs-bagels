@@ -1,18 +1,6 @@
 const Checkout = require('../src/basket.js')
 
 describe('Bagel Shop', () => {
-  // it('- add an item to basket', () => {
-  //   // set up
-  //   const basket = new Checkout()
-  //   const itemToAdd = {
-  //     name: 'Bagel',
-  //     price: 9.99
-  //   }
-  //   // execute
-  //   const result = basket.addToBasket(itemToAdd)
-  //   // verify
-  //   expect(result).toEqual(itemToAdd)
-  // })
   it('- add an item to basket', () => {
     // set up
     const basket = new Checkout()
@@ -21,41 +9,130 @@ describe('Bagel Shop', () => {
       price: 9.99
     }
     // expect the result of calling addToBasket(itemToAdd) to be an array containing itemToAdd
-    const expectedResult = [itemToAdd] 
+    const expectedResult = [itemToAdd]
     // execute
     const result = basket.addToBasket(itemToAdd)
     // verify
     expect(result).toEqual(expectedResult)
   })
 
-  it('- remove item from basket', () => {
-    // set up
+  it('remove an item from the basket', () => {
     const basket = new Checkout()
-    const startBasket = [
+
+    const itemsToAdd = [
       {
-        sku: 'BGLO',
-        price: '0.49'
+        name: 'Bagel',
+        price: 7.99,
+        variant: 'Vegi Supreme',
+        quantity: 1
       },
       {
-        sku: 'BGLP',
-        price: '0.39'
+        name: 'Bagel',
+        price: 8.99,
+        variant: 'NYC Deli',
+        quantity: 1
       }
     ]
-    const toRemove = {
-      sku: 'BGLP',
-      price: '0.39'
+
+    const itemToRemove = {
+      name: 'Bagel',
+      price: 7.99,
+      variant: 'Vegi Supreme',
+      quantity: 1
     }
-    const expected = [
+
+    const expectedResult = [
       {
-        sku: 'BGLO',
-        price: '0.49'
-      },
-      undefined
+        name: 'Bagel',
+        price: 8.99,
+        variant: 'NYC Deli',
+        quantity: 1
+      }
     ]
     // execute
-    basket.addMultipleItems(startBasket)
-    const result = basket.removeItems(toRemove)
+    basket.addMultipleToBasket(itemsToAdd)
+    const updatedBasket = basket.removeFromBasket(itemToRemove)
+    // console.log('new basket', updatedBasket)
+
     // verify
-    expect(result).toEqual(expected)
+    expect(updatedBasket).toEqual(expectedResult)
+  })
+
+  it('add basket limit of 5', () => {
+    const basket = new Checkout()
+    const itemsToAdd = [
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYA Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYB Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYC Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYD Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYE Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYF Deli',
+        quantity: 1
+      }
+    ]
+    const expectedResult = [
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYA Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYB Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYC Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYD Deli',
+        quantity: 1
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYE Deli',
+        quantity: 1
+      }
+    ]
+    // execute
+    const result = basket.addMultipleToBasket(itemsToAdd)
+    // verify
+    expect(result).toEqual(expectedResult)
   })
 })
