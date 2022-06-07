@@ -6,7 +6,9 @@ describe('Bagel Shop', () => {
     const basket = new Checkout()
     const itemToAdd = {
       name: 'Bagel',
-      price: 9.99
+      price: 7.99,
+      variant: 'Vegi Supreme',
+      quantity: 1
     }
     // expect the result of calling addToBasket(itemToAdd) to be an array containing itemToAdd
     const expectedResult = [itemToAdd]
@@ -15,7 +17,6 @@ describe('Bagel Shop', () => {
     // verify
     expect(result).toEqual(expectedResult)
   })
-
   it('remove an item from the basket', () => {
     const basket = new Checkout()
 
@@ -134,5 +135,34 @@ describe('Bagel Shop', () => {
     const result = basket.addMultipleToBasket(itemsToAdd)
     // verify
     expect(result).toEqual(expectedResult)
+  })
+  it('basket is full, use bigger basket', () => {
+    // set up
+    const basket = new Checkout()
+    const itemsToAdd = [
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYA Deli',
+        quantity: 2
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYB Deli',
+        quantity: 3
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYC Deli',
+        quantity: 5
+      }
+    ]
+    // execute
+    basket.addMultipleToBasket(itemsToAdd)
+    const totalRoom = basket.isMax(this.max)
+    // verify
+    expect(totalRoom).toEqual(100)
   })
 })

@@ -1,14 +1,26 @@
 class Checkout {
-  constructor() {
+  constructor(basketSize = 5) {
     this.basket = []
-    this.max = 5
+    this.max = basketSize
   }
 
   isMax() {
-    if (this.basket.length >= this.max) {
-      return true
+    if (this.getTotal() > this.max) {
+      console.log('get a bigger basket ')
+      this.max = 100
+      return this.max
+    } else {
+      console.log('basket is big enough')
+      return false
     }
-    return false
+  }
+
+  getTotal() {
+    let totalQuantity = 0
+    for (let i = 0; i < this.basket.length; i++) {
+      totalQuantity += this.basket[i].quantity
+    }
+    return totalQuantity
   }
 
   addToBasket(item) {
@@ -42,7 +54,5 @@ class Checkout {
     return this.basket
   }
 }
-
-console.log('is max q', this.quantity)
 
 module.exports = Checkout

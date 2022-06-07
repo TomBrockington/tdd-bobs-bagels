@@ -30,3 +30,13 @@ I'd like to know when my basket is full when I try adding an item beyond my bask
 method                  || inputs           || scenario         || outputs
 checkQuantity               basket array        if over 10          add item    
                                                 dont add            dont add item
+
+if basket array > 10 - dont allow more to go in 
+if less than add to basket
+if basket full return messgae ''you are full' 
+
+add a quantity to constructor
+in add bagels functions. include a ++
+in remove bagels include a --
+
+
