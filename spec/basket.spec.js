@@ -136,7 +136,7 @@ describe('Bagel Shop', () => {
     // verify
     expect(result).toEqual(expectedResult)
   })
-  it('basket is full, use bigger basket', () => {
+  it('check for 2 and 2 = 4 quantity', () => {
     // set up
     const basket = new Checkout()
     const itemsToAdd = [
@@ -150,19 +150,68 @@ describe('Bagel Shop', () => {
         name: 'Bagel',
         price: 6.99,
         variant: 'NYB Deli',
-        quantity: 3
-      },
-      {
-        name: 'Bagel',
-        price: 6.99,
-        variant: 'NYC Deli',
-        quantity: 5
+        quantity: 2
       }
     ]
     // execute
     basket.addMultipleToBasket(itemsToAdd)
-    const totalRoom = basket.isMax(this.max)
+    const totalInBasket = basket.getTotal()
     // verify
-    expect(totalRoom).toEqual(100)
+    expect(totalInBasket).toEqual(4)
+  })
+  it('Large basket', () => {
+    // set up
+    const basket = new Checkout(15)
+    const itemsToAdd = [
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYA Deli',
+        quantity: 10
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYB Deli',
+        quantity: 2
+      }
+    ]
+    // execute
+    basket.addMultipleToBasket(itemsToAdd)
+    const totalInBasket = basket.getTotal()
+    // verify
+    expect(totalInBasket).toEqual(12)
+  })
+  it('Large basket overflow', () => {
+    // set up
+    const basket = new Checkout(15)
+    const itemsToAdd = [
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYA Deli',
+        quantity: 10
+      },
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYB Deli',
+        quantity: 7
+      }
+    ]
+    const expectedResult = [
+      {
+        name: 'Bagel',
+        price: 6.99,
+        variant: 'NYA Deli',
+        quantity: 10
+      }
+    ]
+    // execute
+    const result = basket.addMultipleToBasket(itemsToAdd)
+    expect(result).toEqual(expectedResult)
+    const totalInBasket = basket.getTotal()
+    // verify
+    expect(totalInBasket).toEqual(10)
   })
 })

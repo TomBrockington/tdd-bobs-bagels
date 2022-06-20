@@ -4,13 +4,15 @@ class Checkout {
     this.max = basketSize
   }
 
-  isMax() {
-    if (this.getTotal() > this.max) {
-      console.log('get a bigger basket ')
-      this.max = 100
-      return this.max
+  isMax(quantity) {
+    if (this.getTotal() + quantity > this.max) {
+      // console.log('get a bigger basket ')
+      // this.max = 100
+      // console.log('new trolly size = ', this.max)
+      // return this.max
+      return true
     } else {
-      console.log('basket is big enough')
+      // console.log('basket is big enough')
       return false
     }
   }
@@ -24,10 +26,10 @@ class Checkout {
   }
 
   addToBasket(item) {
-    if (!this.isMax()) {
+    if (!this.isMax(item.quantity)) {
       if (item) {
-        console.log('Added Item ', item, this.basket.length)
         this.basket.push(item)
+        // console.log('Added Item ', item, this.basket.length)
       }
     }
     return this.basket
